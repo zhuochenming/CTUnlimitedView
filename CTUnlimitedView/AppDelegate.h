@@ -2,8 +2,8 @@
 //  AppDelegate.h
 //  CTUnlimitedView
 //
-//  Created by boleketang on 2016/11/2.
-//  Copyright © 2016年 Zhuochenming. All rights reserved.
+//  Created by 酌晨茗 on 16/2/15.
+//  Copyright © 2016年 酌晨茗. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -12,6 +12,4 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-
 @end
-

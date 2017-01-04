@@ -2,26 +2,84 @@
 //  AppDelegate.m
 //  CTUnlimitedView
 //
-//  Created by boleketang on 2016/11/2.
-//  Copyright © 2016年 Zhuochenming. All rights reserved.
+//  Created by 酌晨茗 on 16/2/15.
+//  Copyright © 2016年 酌晨茗. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "DetailViewController.h"
+#import "BaseViewController.h"
 
-@interface AppDelegate () <UISplitViewControllerDelegate>
+@interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
-    UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
-    navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
-    splitViewController.delegate = self;
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    BaseViewController *base = [[BaseViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:base];
+    self.window.rootViewController = navigationController;
+    [self.window makeKeyAndVisible];
+
+//    dispatch_queue_t quene = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    dispatch_group_t group = dispatch_group_create();
+//    dispatch_group_async(group, quene, ^{
+//        for (int i = 0; i < 10; i++) {
+//            NSLog(@"%ld", i);
+//        }
+//    });
+//    dispatch_group_async(group, quene, ^{
+//        for (int i = 0; i < 10; i++) {
+//            NSLog(@"~~~~~%ld", i);
+//        }
+//    });
+//    
+//    dispatch_barrier_async(quene, ^{
+//        NSLog(@"你是");
+//    });
+//    
+//    dispatch_barrier_async(quene, ^{
+//        NSLog(@"逗比");
+//    });
+//    
+//    dispatch_async(quene, ^{
+//        NSLog(@"我");
+//    });
+//    
+//    dispatch_async(quene, ^{
+//        NSLog(@"不值得");
+//    });
+    
+//    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+//        NSLog(@"END");
+//    });
+    
+//    dispatch_barrier_async的顺序执行依赖queue的类型，必需要queue的类型为dispatch_queue_create创建，而且attr参数值必需是DISPATCH_QUEUE_CONCURRENT类型，前面两个非dispatch_barrier_async的类型的执行是依赖其本身的执行时间
+//    const char *queueName = [@"fdsg" UTF8String];
+//    dispatch_queue_t queue = dispatch_queue_create(queueName, 0);
+//
+//    dispatch_async(queue, ^{
+//        [NSThread sleepForTimeInterval:3];
+//        NSLog(@"dispatch_async1");
+//    });
+//    dispatch_async(queue, ^{
+////        [NSThread sleepForTimeInterval:1];
+//        NSLog(@"dispatch_async2");
+//    });
+//    dispatch_barrier_async(queue, ^{
+//        NSLog(@"dispatch_barrier_async");
+//        [NSThread sleepForTimeInterval:0.5];
+//        
+//    });
+//    dispatch_async(queue, ^{
+//        [NSThread sleepForTimeInterval:1];
+//        NSLog(@"dispatch_async3");
+//    });
+    
     return YES;
 }
 
@@ -45,17 +103,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-#pragma mark - Split view
-
-- (BOOL)splitViewController:(UISplitViewController *)splitViewController collapseSecondaryViewController:(UIViewController *)secondaryViewController ontoPrimaryViewController:(UIViewController *)primaryViewController {
-    if ([secondaryViewController isKindOfClass:[UINavigationController class]] && [[(UINavigationController *)secondaryViewController topViewController] isKindOfClass:[DetailViewController class]] && ([(DetailViewController *)[(UINavigationController *)secondaryViewController topViewController] detailItem] == nil)) {
-        // Return YES to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
-        return YES;
-    } else {
-        return NO;
-    }
 }
 
 @end

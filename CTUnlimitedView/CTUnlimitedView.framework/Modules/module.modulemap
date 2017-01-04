@@ -1,0 +1,6 @@
+framework module CTUnlimitedView {
+  umbrella header "CTUnlimitedView.h"
+
+  export *
+  module * { export * }
+}
